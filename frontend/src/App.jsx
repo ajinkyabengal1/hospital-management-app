@@ -1,9 +1,11 @@
-import "./App.css"
+import "./App.css";
+import Layout from "./layout/Layout";
+Layout;
 
 function App() {
   return (
     <>
-      <h1 className="text-[120px] text-blue-600">Hello react + vite app</h1>
+      <Layout />
     </>
   );
 }
