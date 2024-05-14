@@ -74,6 +74,7 @@ const Footer = () => {
     <footer className="pb-16 pt-10">
       <div className="container">
         <div className="flex justify-between flex-col md:flex-row gap-[30px]">
+          {/* <== social links  ==>*/}
           <div>
             <img src={logo} alt="logo" />
             <p className="text-[16px] leading-7 font-[400] text-textColor mt-4">
@@ -88,12 +89,13 @@ const Footer = () => {
                   className="w-9 h-9 border border-solid border-[#181A1E]
                 rounded-full flex items-center justify-center group hover:bg-primaryColor hover:border-none"
                 >
-                  {link.icon}
+                  {link.icons}
                 </Link>
               ))}
             </div>
           </div>
 
+          {/* <== path links ==> */}
           <div>
             <h2
               className="text-[20px] leading-[30px] font-[700] mb-6 text-headingColor
@@ -116,6 +118,8 @@ const Footer = () => {
               ))}
             </ul>
           </div>
+
+          {/* <== services ==> */}
           <div>
             <h2
               className="text-[20px] leading-[30px] font-[700] mb-6 text-headingColor
@@ -139,6 +143,7 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* <== Support ==> */}
           <div>
             <h2
               className="text-[20px] leading-[30px] font-[700] mb-6 text-headingColor
