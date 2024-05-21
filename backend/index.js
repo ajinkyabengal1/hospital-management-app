@@ -3,7 +3,9 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const authRout = require("./Routes/auth.js");
+const authRoute = require("./Routes/auth.js");
+const userRoute = require("./Routes/user.js");
+const doctorRoute = require("./Routes/doctor.js");
 
 dotenv.config();
 
@@ -37,7 +39,9 @@ const connectDB = async () => {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOption));
-app.use("/api/v1/auth", authRout); //domain/api/v1/auth/register
+app.use("/api/v1/auth", authRoute); //domain/api/v1/auth/register
+app.use("/api/v1/users", userRoute); //domain/api/v1/auth/users
+app.use("/api/v1/doctors", doctorRoute); //domain/api/v1/auth/doctors
 
 app.listen(port, () => {
   connectDB();
