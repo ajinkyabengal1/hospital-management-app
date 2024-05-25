@@ -17,13 +17,11 @@ const updateDoctor = async (req, res) => {
       data: updatedDoctor,
     });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Failed to update",
-        data: updatedDoctor,
-      });
+    res.status(500).json({
+      success: false,
+      message: "Failed to update",
+      data: updatedDoctor,
+    });
   }
 };
 
@@ -63,7 +61,28 @@ const getsingleDoctor = async (req, res) => {
 // get all Doctor
 const getallDoctor = async (req, res) => {
   try {
-    const Doctors = await Doctor.find({});
+    const { query } = req.query;
+    let doctors;
+
+    if (query) {
+      doctors = await Doctor.find({
+        isApproved: "approved",
+        $or: [
+          { name: { $regex: query, $options: "i" } },
+          {
+            specialization: { $regex: query, $options: "i" },
+          },
+        ],
+      }).select("-password");
+    } else {
+      doctors = await Doctor.find({ isApproved: "approved" }).select(
+        "-password"
+      );
+    }
+
+    const Doctors = await Doctor.find({ isApproved: "approved" }).select(
+      "-password"
+    );
 
     res.status(200).json({
       success: true,
