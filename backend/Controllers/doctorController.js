@@ -1,4 +1,5 @@
 const Doctor = require("../models/DoctorSchema.js");
+const Booking = require("../models/BookingSchema.js");
 
 // update Doctor func
 const updateDoctor = async (req, res) => {
@@ -60,7 +61,7 @@ const getsingleDoctor = async (req, res) => {
   }
 };
 
-// get all Doctor
+// get all Doctor func
 const getallDoctor = async (req, res) => {
   try {
     const { query } = req.query;
@@ -96,4 +97,37 @@ const getallDoctor = async (req, res) => {
   }
 };
 
-module.exports = { updateDoctor, deleteDoctor, getsingleDoctor, getallDoctor };
+// get doctors profile func
+const getDoctorProfile = async (req, res) => {
+  const doctorId = req.doctorId;
+
+  try {
+    const doctor = await Doctor.findById(doctorId);
+
+    if (!doctor) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Doctor not found." });
+    }
+
+    const { password, ...rest } = doctor._doc;
+
+    const appointments = await Booking.find({ doctor: doctorId });
+
+    res.status(200).json({
+      success: true,
+      message: "doctor found successfully !",
+      data: { ...rest, appointments },
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong !" });
+  }
+};
+
+module.exports = {
+  updateDoctor,
+  deleteDoctor,
+  getsingleDoctor,
+  getallDoctor,
+  getDoctorProfile,
+};

@@ -1,4 +1,6 @@
 const User = require("../models/UserSchema.js");
+const Booking = require("../models/BookingSchema.js");
+const Doctor = require("../models/DoctorSchema.js");
 
 // update user func
 const updateUser = async (req, res) => {
@@ -56,7 +58,7 @@ const getsingleUser = async (req, res) => {
   }
 };
 
-// get all user
+// get all user func
 const getallUser = async (req, res) => {
   try {
     const users = await User.find({});
@@ -71,4 +73,58 @@ const getallUser = async (req, res) => {
   }
 };
 
-module.exports = { updateUser, deleteUser, getsingleUser, getallUser };
+// get user profile func
+const getUserProfile = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found." });
+    }
+
+    const { password, ...rest } = user._doc;
+
+    res.status(200).json({
+      success: true,
+      message: "user found successfully !",
+      data: { ...rest },
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong !" });
+  }
+};
+
+// get user appointments func
+const getMyAppointments = async (req, res) => {
+  try {
+    // 1. retrieve appointments from booking for specific user
+    const bookings = await Booking.find({ user: req.userId });
+
+    // 2. extract doctor id from appointments
+    const doctorIds = bookings.map((item) => item.doctor.id);
+
+    // 3. retrieve doctors ids
+    const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select(
+      "-password"
+    );
+
+    res
+      .status(200)
+      .json({ success: true, message: "Appointment found.", data: doctors });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Something went wrong !" });
+  }
+};
+
+module.exports = {
+  updateUser,
+  deleteUser,
+  getsingleUser,
+  getallUser,
+  getUserProfile,
+  getMyAppointments,
+};

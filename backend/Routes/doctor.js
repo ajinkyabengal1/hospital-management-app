@@ -5,6 +5,7 @@ const {
   deleteDoctor,
   getsingleDoctor,
   getallDoctor,
+  getDoctorProfile,
 } = require("../Controllers/doctorController.js");
 
 const { authenticate, restrict } = require("../auth/verifyToken.js");
@@ -20,5 +21,6 @@ router.get("/:id", getsingleDoctor);
 router.get("/", getallDoctor);
 router.delete("/:id", authenticate, restrict(["doctor"]), deleteDoctor);
 router.put("/:id", authenticate, restrict(["doctor"]), updateDoctor);
+router.get("/profile/me", authenticate, restrict(["doctor"]), getDoctorProfile);
 
 module.exports = router;
