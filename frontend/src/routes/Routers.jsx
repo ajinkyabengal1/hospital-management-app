@@ -10,6 +10,7 @@ import Doctors from "../pages/Doctors/Doctors";
 import DoctorDetails from "../pages/Doctors/DoctorDetails";
 import MyAccount from "../Dashboard/user-account/MyAccount";
 import Dashboard from "../Dashboard/doctor-account/Dashboard";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const Routers = () => {
   return (
@@ -22,8 +23,22 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/doctors/:id" element={<DoctorDetails />} />
-      <Route path="/users/profile/me" element={<MyAccount />} />
-      <Route path="/doctors/profile/me" element={<Dashboard />} />
+      <Route
+        path="/users/profile/me"
+        element={
+          <ProtectedRoutes allowedRoles={["patient"]}>
+            <MyAccount />
+          </ProtectedRoutes>
+        }
+      />
+      <Route
+        path="/doctors/profile/me"
+        element={
+          <ProtectedRoutes allowedRoles={["doctor"]}>
+            <Dashboard />
+          </ProtectedRoutes>
+        }
+      />
     </Routes>
   );
 };

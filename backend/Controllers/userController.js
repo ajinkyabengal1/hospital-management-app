@@ -111,6 +111,7 @@ const getMyAppointments = async (req, res) => {
     const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select(
       "-password"
     );
+    console.log(doctors);
 
     res
       .status(200)
