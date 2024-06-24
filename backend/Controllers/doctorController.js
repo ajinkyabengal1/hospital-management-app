@@ -99,7 +99,8 @@ const getallDoctor = async (req, res) => {
 
 // get doctors profile func
 const getDoctorProfile = async (req, res) => {
-  const doctorId = req.doctorId;
+  const doctorId = req.userId;
+  console.log(doctorId);
 
   try {
     const doctor = await Doctor.findById(doctorId);

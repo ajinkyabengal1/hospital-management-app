@@ -1,22 +1,17 @@
 import React from "react";
 import { formateDate } from "../../utlis/formateDate";
 
-const DoctorAbout = () => {
+const DoctorAbout = ({ name, about, qualifications, experiences }) => {
   return (
     <>
       <div>
         <h3 className="text-[20px] leading-[30px] text-headingColor font-semibold flex items-center gap-2">
           About of
           <span className="text-irisBlueColor font-bold text-[24px] leading-9">
-            Amit Shah
+            {name}
           </span>
         </h3>
-        <p className="text_para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-          aliquam fuga consectetur dolorum nostrum, sint iusto unde quo
-          explicabo enim repellendus numquam quis nobis dolore eos tempore
-          debitis dolores quam.
-        </p>
+        <p className="text_para">{about}</p>
       </div>
 
       <div className="mt-12">
@@ -30,11 +25,11 @@ const DoctorAbout = () => {
                 {formateDate("06-04-2024")} - {formateDate("06-04-2029")}
               </span>
               <p className="text-[16px] leading-6 font-medium text-textColor">
-                PHD in Surgeon
+                {qualifications}
               </p>
             </div>
             <p className="text-[16px] leading-65 font-medium text-textColor">
-              AIIMS Hospital , Delhi.
+              {experiences}
             </p>
           </li>
 
