@@ -22,7 +22,7 @@ const FeedbackForm = () => {
     try {
       if (!rating || !reviewText) {
         setLoading(false);
-        toast.error("Rating & Review field are required");
+        return toast.error("Rating & Review field are required");
       }
 
       const res = await fetch(`${BASE_URL}/doctors/${id}/reviews`, {
