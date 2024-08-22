@@ -9,10 +9,11 @@ const generateToken = (user) => {
     { id: user._id, role: user.role },
     process.env.JWT_SECRET_KEY,
     {
-      expiresIn: "15d",
+      expiresIn: "30d",
     }
   );
 };
+console.log(generateToken);
 
 const register = async (req, res) => {
   const { email, password, name, role, photo, gender } = req.body;
@@ -104,6 +105,8 @@ const login = async (req, res) => {
 
     // get auth token
     const token = generateToken(user);
+
+    console.log(token);
 
     const { password, role, appointments, ...rest } = user._doc;
 

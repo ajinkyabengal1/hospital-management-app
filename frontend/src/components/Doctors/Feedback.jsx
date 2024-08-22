@@ -5,6 +5,7 @@ import FeedbackForm from "./FeedbackForm";
 
 const Feedback = ({ reviews, totalRating }) => {
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+  console.log(reviews);
 
   return (
     <div>
